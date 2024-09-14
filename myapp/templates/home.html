@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - My Blog</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <div>
+            <nav class="nav-bar">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'post_list' %}" class="nav-link">Post List</a>
+                <a href="{% url 'gallery' %}" class="nav-link">Gallery</a>
+                <a href="{% url 'videos' %}" class="nav-link">Videos</a>
+            </nav> 
+        </div>
+    </header>
+    <div class="homepage-image">
+        <img src="https://i.imgur.com/EmBBDg8.jpeg" alt="Homepage Image">
+    </div>
+    <h1>Welcome to Myoma Youth Website</h1>
+    <p>Here, we will share our activities and other updates.</p>
+    <hr class="post-separator">
+    <p>Before visiting, do not forget to open your VPN :)</p>
+    <a href="https://www.facebook.com/profile.php?id=100076410084451&mibextid=ZbWKwL" target="_blank" class="facebook-button">Visit Our Facebook Page</a>
+    <hr class="post-separator">
+    <p>Please also visit our Telegram channel <3</p>
+    <a href="https://t.me/myoma2192004" target="_blank" class="telegram-button">Join Our Telegram Channel</a>
+</body>
+</html>
+
+
+

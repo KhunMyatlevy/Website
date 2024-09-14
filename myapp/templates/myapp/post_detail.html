@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- Include Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="post-container">
+            <p>{{ post.content }}</p>
+        </div>
+        
+        <!-- Display all images associated with the post -->
+        {% if post.images.all %}
+            <div class="post-images">
+                {% for image in post.images.all %}
+                    <!-- Wrap each image in an anchor tag for Fancybox -->
+                    <a href="{{ image.image.url }}" data-fancybox="gallery" data-caption="{{ image.image.description }}">
+                        <img src="{{ image.image.url }}" alt="Post Image" style="width:400px;height:auto;">
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <!-- Display all videos associated with the post -->
+        {% if post.videos.all %}
+            <div class="post-videos">
+                {% for video in post.videos.all %}
+                    <!-- Display uploaded video files with responsive class -->
+                    <video class="responsive-video" controls>
+                        <source src="{{ video.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="post-date">Posted on: {{ post.created_at }}</div>
+        <div class="centered-button">
+            <a href="{% url 'post_list' %}" class="button-link">Back to the Post List</a>
+        </div>
+        
+    <!-- Include jQuery and Fancybox JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Fancybox
+            $("[data-fancybox]").fancybox();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

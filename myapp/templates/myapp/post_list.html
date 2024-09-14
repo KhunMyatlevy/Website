@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Posts</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <div>
+            <nav class="nav-bar">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'post_list' %}" class="nav-link">Post List</a>
+                <a href="{% url 'gallery' %}" class="nav-link">Gallery</a>
+                <a href="{% url 'videos' %}" class="nav-link">Videos</a>
+            </nav> 
+        </div>
+    </header>
+    
+    <hr>
+    <hr>
+
+    <main>
+        <!-- Added search form with a class -->
+        <form method="get" action="{% url 'post_list' %}" class="search-form">
+            <input type="text" name="q" placeholder="Search posts..." value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <ul style="margin-top: 50px;"> <!-- Added space above the list -->
+            {% for post in posts %}
+                <li>
+                    <!-- Container div for truncated content -->
+                    <div class="truncated-content-container">
+                        <p class="truncated-content">
+                            {{ post.truncated_content }}... 
+                            <a href="{% url 'post_detail' post.id %}">See More</a>
+                        </p>
+                    </div>
+
+                    <!-- Display the first image associated with the post -->
+                    {% if post.first_image %}
+                        <div class="post-image-container">
+                            <img src="{{ post.first_image.image.url }}" alt="Post Image" class="post-image">
+                            <!-- Indicate there are more images -->
+                            {% if post.images.count > 1 %}
+                                <p><a href="{% url 'post_detail' post.id %}" class="view-images-link">View all images</a></p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Display the first video associated with the post -->
+                    {% if post.videos.first %}
+                        <div class="post-video-container">
+                            <video class="responsive-video" controls>
+                                <source src="{{ post.videos.first.video.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <!-- Indicate there are more videos -->
+                            {% if post.videos.count > 1 %}
+                                <p><a href="{% url 'post_detail' post.id %}" class="view-videos-link">View all videos</a></p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <div class="post-date">Posted on: {{ post.created_at }}</div>
+                </li>
+                <hr class="post-separator">
+            {% empty %}
+                <li>No posts available.</li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

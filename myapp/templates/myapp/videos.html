@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <div>
+            <nav class="nav-bar">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'post_list' %}" class="nav-link">Post List</a>
+                <a href="{% url 'gallery' %}" class="nav-link">Gallery</a>
+                <a href="{% url 'videos' %}" class="nav-link">Videos</a>
+            </nav> 
+        </div>
+    </header>
+    <hr>
+    <hr>
+    <main>
+        <div class="videos-container">
+            {% for item in videos %}
+                <div class="video-item">
+                    <a href="{% url 'post_detail' item.post.id %}">
+                        <video class="responsive-video" controls>
+                            <source src="{{ item.video.video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </a>
+                </div>
+            {% empty %}
+                <p>No videos available.</p>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
